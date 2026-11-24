@@ -47,17 +47,25 @@ It was built for one specific, common setup and tested there:
 > **Mac + Citrix Workspace → Windows virtual desktop → Zoom with the Zoom VDI media plugin, Bluetooth earbuds (Jabra Elite 10)**
 > "Your volume is very low" — but only with the headset, and no Zoom, Citrix or macOS setting fixes it.
 
-## Why the mic is too quiet (measured, not guessed)
+## Why the mic is too quiet
 
-- With Zoom's media plugin, Zoom on the **Mac** captures the microphone directly; Citrix does not carry the audio at all.
-- Normal speech through the earbuds reached Zoom at about **−25 dBFS** on the loudest moments. Zoom's own level meter
-  only turns green from about **−19 dBFS**: the voice arrives roughly **10 dB below** what Zoom considers good.
-- Nothing in the chain can raise it: the Mac input slider tops out at 100% (unity), Zoom's input slider in the
-  Citrix/VDI window **has no effect** (it only mirrors the Mac value), and Zoom's "automatically adjust microphone
-  volume" only ever turned the level **down** (and the lowered Mac slider stayed low afterwards).
-- The MacBook's built-in mic arrives at a similar raw level, so this is not a defect of one headset.
-- Settings that make it worse: Zoom "Personalized audio isolation" removed the earbud voice almost completely;
-  Zoom "Original sound" combined with macOS "Voice Isolation" cost about −10 dB.
+**Zoom and its VDI media plugin carry most of the blame.** Your microphone reaches Zoom below the level Zoom itself
+calls good, and in the VDI setup Zoom has no working way to raise it: no digital input normalization, an input slider
+that does nothing, and an auto-volume that can only turn the level down. This also happens with the MacBook's own
+microphone and Apple's default processing, so it is not one headset's fault. CallLift is the missing gain stage.
+
+Each issue is documented separately with measurements in [FINDINGS](FINDINGS/README.md):
+
+1. [No input level normalization in Zoom's VDI path](FINDINGS/01-zoom-no-input-normalization.md): main cause
+2. [Apple's voice processing boosts only the built-in mic](FINDINGS/02-apple-voice-processing-builtin-only.md): why the headset was worse than the laptop
+3. [Zoom's input volume slider has no effect in VDI](FINDINGS/03-zoom-vdi-input-slider-no-effect.md)
+4. [Zoom's auto-volume only lowers, and the lowered level sticks](FINDINGS/04-zoom-auto-volume-only-lowers.md)
+5. [Personalized audio isolation removes a Bluetooth earbud voice](FINDINGS/05-zoom-personalized-isolation-removes-voice.md)
+6. [Original sound + macOS Voice Isolation costs 10 dB](FINDINGS/06-original-sound-plus-voice-isolation.md)
+7. [Zoom VDI user interface shows stale state](FINDINGS/07-zoom-vdi-ui-stale.md)
+8. [Bluetooth call mode: 16 kHz and a 2–4 s switch](FINDINGS/08-bluetooth-call-mode.md)
+9. [macOS falls back to a virtual device when the headset disconnects](FINDINGS/09-macos-fallback-to-virtual-device.md)
+10. [What was ruled out, and what is still open](FINDINGS/10-ruled-out-and-open.md)
 
 ## What CallLift does
 

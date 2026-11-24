@@ -5,6 +5,7 @@
 !/LICENSE
 !/.gitignore
 !/calllift/
+!/FINDINGS/
 
 # inside calllift: never build output, recordings or logs
 /calllift/build/
