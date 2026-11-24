@@ -8,6 +8,40 @@ CallLift is a small macOS menu bar app. It takes your microphone, raises its lev
 and hands the result to your call app through a virtual microphone ([BlackHole](https://github.com/ExistentialAudio/BlackHole)).
 The menu bar icon shows **live** whether your voice reaches a good level.
 
+## Privacy, architecture and ways out
+
+**Your microphone stays on your Mac.**
+
+- **No internet access.** CallLift contains no networking code and opens no network connections (check yourself:
+  `lsof -i -a -p $(pgrep -x CallLift)` prints nothing; a firewall such as LuLu can block it with no effect on function).
+  No telemetry, no accounts, no auto-update. The only web link (BlackHole's project page) opens in your browser when you click it.
+- **Microphone only during calls.** CallLift opens your microphone only while an app is reading the virtual microphone,
+  and closes it 3 s after that app stops. Outside calls the macOS orange microphone indicator shows no CallLift activity.
+- **Nothing is recorded.** Audio passes through memory only (about 15 ms of buffer). The log file
+  (`~/Library/Logs/CallLift.log`) contains device names and state changes, never audio.
+- **Built on your Mac from source** you can read: about 1,200 lines of Swift, no third-party code, no bundled drivers,
+  no kernel extensions. BlackHole is a separate, open-source project you install yourself.
+
+**Architecture**
+
+```
+your microphone ──► CallLift (menu bar app, runs as you, started at login)
+                     ├─ Core Audio input callback: gain + look-ahead limiter (real-time thread)
+                     ├─ lock-free ring buffer, resampler with clock-drift control (e.g. 16 kHz → 48 kHz)
+                     └─ Core Audio output callback ──► BlackHole 2ch (virtual device) ──► your call app's microphone
+```
+
+**Ways out (all reversible)**
+
+| You want to | Do |
+|---|---|
+| Stop it now | menu → **Quit CallLift** (stays off until next login) |
+| No boost, keep it running | menu → Boost → **0 dB** |
+| Use your headset directly again | in your call app, set the microphone back to the headset |
+| Take away its microphone access | System Settings → Privacy & Security → Microphone → **CallLift** off |
+| Remove it completely | `./install.sh --uninstall`, delete `~/Applications/CallLift.app` (see [Uninstall](#uninstall)) |
+| Remove the virtual device | `brew uninstall --cask blackhole-2ch` |
+
 It was built for one specific, common setup and tested there:
 
 > **Mac + Citrix Workspace → Windows virtual desktop → Zoom with the Zoom VDI media plugin, Bluetooth earbuds (Jabra Elite 10)**
@@ -62,30 +96,19 @@ BlackHole only adds an extra, silent audio device: your normal speakers and micr
 `install.sh` builds the app into `~/Applications/CallLift.app` and starts it at every login. Allow microphone access
 when macOS asks. CallLift is signed locally (ad-hoc), so macOS asks again after every rebuild.
 
-## Setup recipes (presets)
+## Setup recipes
 
-### Mac + Citrix (Windows) + Zoom media plugin — tested
+Each recipe lists **every** relevant setting on both sides (call app inside the virtual desktop and the Mac), what must be
+**off** and why, and what was measured. Pick the one that matches your setup:
 
-CallLift: **Preset → Mac + Citrix (Windows) + Zoom media plugin** (default).
-
-In Zoom inside the Citrix desktop (Settings → Audio):
-
-| Setting | Value |
+| Recipe | Status |
 |---|---|
-| Microphone | **BlackHole 2ch** |
-| Speaker | your headset, or "Same as system" (never BlackHole 2ch) |
-| Microphone modes | **Noise removal** (removes keyboard and background noise the boost makes audible) |
-| Automatically adjust microphone volume | **off** |
-| Advanced → Echo cancellation | Low (least processing with earbuds) |
+| [Mac + Citrix (Windows desktop) + Zoom VDI media plugin](calllift/docs/recipes/zoom-citrix-vdi.md) | **tested** |
+| Teams in Citrix (HDX RTC engine), native Zoom / Teams / Meet / Webex, Windows VMs (Parallels, VMware) | not tested yet |
 
-On the Mac: System Settings → Sound → Input = your headset (CallLift follows it); Control Center → Mic Mode for Zoom = Standard.
-
-### Other setups — not tested yet
-
-Teams in Citrix (Citrix HDX RTC engine), native Zoom / Teams / Meet / Webex on the Mac, Windows VMs (Parallels, VMware):
-any app that can pick "BlackHole 2ch" as its microphone should work. Apps that only use the Mac's **default** input
+Any app that can pick "BlackHole 2ch" as its microphone should work. Apps that only use the Mac's **default** input
 (some VMs, Citrix without a media plugin) need the default input set to BlackHole 2ch and CallLift set to
-**Microphone → Always use: <your mic>**. Reports welcome.
+**Microphone → Always use: <your mic>**. Reports and new recipes welcome.
 
 ## Uninstall
 
