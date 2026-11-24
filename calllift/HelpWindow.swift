@@ -55,7 +55,7 @@ final class HelpWindow: NSObject {
 
         h("How the sound flows")
         m("Jabra (or other mic) → CallLift: +boost, limiter → BlackHole 2ch → Zoom VDI plugin on this Mac → meeting")
-        p("Your mic normally reaches Zoom about 10 dB below Zoom's \"green\" zone, and nothing in Zoom, Citrix or macOS can raise it. CallLift adds the missing gain (default +15 dB). A limiter catches the loudest moments at −1 dBFS so nothing distorts. Extra delay: about 22 ms (measured).")
+        p("Your mic normally reaches Zoom about 10 dB below Zoom's \"green\" zone, and nothing in Zoom, Citrix or macOS can raise it. CallLift adds the missing gain (default +20 dB). A limiter catches the loudest moments at −1 dBFS so nothing distorts. Extra delay: about 22 ms (measured).")
 
         h("Required settings")
         p("• VDI Zoom → Audio → Microphone: BlackHole 2ch")
@@ -81,7 +81,7 @@ final class HelpWindow: NSObject {
         p("• 0–3 dB, occasionally: inaudible, only single peaks are touched.")
         p("• 3–6 dB, more often: slightly denser, radio-like; loud syllables lose a little punch, still natural.")
         p("• over 6 dB, often (orange icon): clearly compressed; loud and quiet speech sound almost equally loud, and you may hear \"pumping\" (the level dips after a loud word and comes back).")
-        p("• +24 dB Boost (red in the menu): the limiter works almost all the time; you sound loud but flat. Still no clipping; very fast, deep reductions can sound slightly rough.")
+        p("• Very high boost for your voice (e.g. +24 dB when you speak loudly): the limiter works almost all the time; you sound loud but flat. Still no clipping; very fast, deep reductions can sound slightly rough.")
         p("Rule of thumb: occasional orange on loud moments is fine. If the icon is orange most of the time you talk, lower the Boost one step. A red icon is never the limiter: it always means a problem (disconnected, no access, no audio).")
 
         h("When it runs")
@@ -92,10 +92,10 @@ final class HelpWindow: NSObject {
         p("Note: \"muted\" means CallLift sends silence. Zoom's own mute button is not changed.")
 
         h("Menu")
-        p("• Preset: ready-made settings for a tested setup. \"Mac + Citrix (Windows) + Zoom media plugin\" = BlackHole 2ch, follow default input, +15 dB, green from −20 dBFS. Any change of your own switches to Custom.")
+        p("• Preset: ready-made settings for a tested setup. \"Mac + Citrix (Windows) + Zoom media plugin\" = BlackHole 2ch, follow default input, +20 dB, green from −20 dBFS. Any change of your own switches to Custom.")
         p("• Microphone: \"Follow macOS default input\" (normal), or \"Always use\" one fixed microphone. Use the fixed mode when the Mac's default input must be the virtual device itself (e.g. a Windows VM or Citrix without the media plugin, which only use the default input).")
         p("• Send to: the virtual device your call app uses as its microphone (default BlackHole 2ch). If it is missing, the menu offers the install command (Homebrew: brew install --cask blackhole-2ch).")
-        p("• Boost: 0 to +24 dB (default +15). Above +15 the limiter works more often (orange icon).")
+        p("• Boost: 0 to +24 dB (default +20, green in the menu). Below it usually too quiet for Zoom (yellow); +24 makes the limiter work more often (orange).")
         p("• Keep mic volumes at 100%: resets the input volume of your mic and of BlackHole 2ch if anything lowers it (Zoom's auto-volume did that once and the change stuck).")
         p("• Always active (testing): run even when nobody listens.")
         p("• Statistics… (⌘S): live level, limiter, delay, dropouts, clock drift.")

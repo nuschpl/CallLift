@@ -1,3 +1,5 @@
+![CallLift menu with the recommended +20 dB boost selected](calllift/docs/boost-menu.png)
+
 # CallLift
 
 **Your microphone is too quiet in calls, and nothing in the settings makes it louder. CallLift does.**
@@ -29,7 +31,7 @@ It was built for one specific, common setup and tested there:
 microphone (e.g. Bluetooth headset) → CallLift: +boost, limiter at −1 dBFS → BlackHole 2ch → call app → meeting
 ```
 
-- **Boost** 0 to +24 dB (default +15 dB, tuned so normal speech reaches Zoom's green zone), **look-ahead limiter** so loud moments never clip.
+- **Boost** 0 to +24 dB (default +20 dB, tuned so normal speech reaches Zoom's green zone), **look-ahead limiter** so loud moments never clip.
 - **Live voice feedback** in the menu bar: blue = active, not talking · green = good level · yellow = too quiet · orange = too loud (limiter working hard) · red = problem.
 - **Runs only while an app listens** to the virtual microphone; outside calls it touches no microphone, so a Bluetooth headset stays in music quality.
 - **Follows the macOS default input**, or a fixed microphone. If the microphone **disconnects**, CallLift sends silence and turns red instead of silently switching to the laptop mic; it resumes when the headset is back.
@@ -54,6 +56,8 @@ sudo killall coreaudiod            # or log out and in, so the new device appear
 git clone https://github.com/nuschpl/CallLift.git
 cd CallLift/calllift && ./install.sh
 ```
+
+BlackHole only adds an extra, silent audio device: your normal speakers and microphones keep working as before, and nothing goes through BlackHole unless an app (or you, in Sound settings) selects it; the one exception we saw is that macOS itself may switch its default input or output to a BlackHole device when your current headset disconnects (CallLift ignores that switch for its own microphone, but other apps set to "same as system" follow it until the headset is back).
 
 `install.sh` builds the app into `~/Applications/CallLift.app` and starts it at every login. Allow microphone access
 when macOS asks. CallLift is signed locally (ad-hoc), so macOS asks again after every rebuild.

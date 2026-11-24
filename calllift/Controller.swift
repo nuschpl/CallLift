@@ -21,7 +21,7 @@ struct Preset {
     static let all: [Preset] = [
         Preset(id: "zoom-citrix", name: "Mac + Citrix (Windows) + Zoom media plugin",
                summary: "Tested 2026-11: Zoom VDI plugin on the Mac reads the virtual device; Zoom mic = BlackHole 2ch, Noise removal on.",
-               sinkName: "BlackHole 2ch", followDefault: true, gainDB: 15, goodDB: -20),
+               sinkName: "BlackHole 2ch", followDefault: true, gainDB: 20, goodDB: -20),
     ]
     static func find(_ id: String) -> Preset? { all.first { $0.id == id } }
 }
@@ -297,7 +297,11 @@ final class Controller {
 
     // MARK: presets, follow mode, virtual device
 
-    private func markCustom() { if !applyingPreset && presetID != "custom" { presetID = "custom" } }
+    private func markCustom() {
+        guard !applyingPreset, presetID != "custom", let p = Preset.find(presetID) else { return }
+        let same = p.sinkName == sinkName && p.followDefault == followDefault && p.gainDB == gainDB && p.goodDB == goodDB
+        if !same { presetID = "custom" }
+    }
 
     func apply(_ p: Preset) {
         applyingPreset = true

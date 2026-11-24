@@ -181,10 +181,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             let (dot, note): (NSColor, String) = {
                 switch g {
                 case 0: return (.systemGray, "  off")
-                case ..<15: return (.systemYellow, "  usually too quiet for Zoom")
-                case 15: return (.systemGreen, "  recommended")
-                case ..<24: return (.systemOrange, "  louder, limiter works more often")
-                default: return (.systemRed, "  very loud, heavy limiting")
+                case ..<20: return (.systemYellow, "  usually too quiet for Zoom")
+                case 20: return (.systemGreen, "  recommended")
+                default: return (.systemOrange, "  louder, limiter works more often")
                 }
             }()
             let title = NSMutableAttributedString(string: "● ", attributes: [.foregroundColor: dot, .font: NSFont.menuFont(ofSize: 0)])
