@@ -1,0 +1,14 @@
+# Whitelist: this folder also holds private debugging material (recordings, logs, test tools).
+# Only the files listed below may ever be committed.
+/*
+!/README.md
+!/LICENSE
+!/.gitignore
+!/calllift/
+
+# inside calllift: never build output, recordings or logs
+/calllift/build/
+*.wav
+*.flac
+*.log
+.DS_Store
