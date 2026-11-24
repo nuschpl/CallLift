@@ -4,7 +4,8 @@ Each file is one issue found while debugging "my microphone is too quiet in Zoom
 Zoom VDI media plugin (November 2026). Every file states the responsible component, the effect, the measured
 evidence, the workaround and the status.
 
-Test setup: macOS 27.2, Citrix Workspace app for Mac 26.09, Zoom VDI media plugin for Citrix (Mac) 7.0.14,
+Test setup: macOS 27.2, Citrix Workspace app for Mac 26.09, Zoom VDI plugin for Citrix (Mac) 7.0.14 (27210)
+(`/Applications/ZoomVDI.app`, `us.zoom.ZoomVDI`; its audio engine is `zoom.app` inside it, `us.zoom.osx.zoomhdxMediaEngine`),
 Zoom Workplace in the Windows desktop, Jabra Elite 10 earbuds (firmware 4.6.0) over Bluetooth, MacBook Pro built-in mic,
 BlackHole 2ch. Levels in dBFS. "Zoom gain" = level received by a second, muted meeting participant minus the raw
 microphone level, which is independent of how loudly the speaker talked.

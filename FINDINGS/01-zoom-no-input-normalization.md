@@ -1,6 +1,7 @@
 # 01 — No input level normalization in Zoom's VDI path (main cause)
 
-**Component:** Zoom VDI media plugin (runs on the Mac: `zoomhdxMediaEngine`)
+**Component:** Zoom VDI plugin for Citrix, Mac version 7.0.14 (`/Applications/ZoomVDI.app`); its audio engine runs on the Mac as
+`zoom.app` inside it (`us.zoom.osx.zoomhdxMediaEngine`)
 **Effect:** normal speech reaches the meeting below the level Zoom itself considers good; others hear you quieter than other participants.
 **Caused the original problem:** yes, this is the main cause.
 

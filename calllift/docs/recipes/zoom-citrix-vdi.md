@@ -4,19 +4,22 @@ CallLift preset: **Mac + Citrix (Windows) + Zoom media plugin** (default).
 Status: **tested** (November 2026). Every setting below was checked by measurement; the reason is given so you can
 decide for yourself if your setup differs.
 
-Tested with: macOS 27.2, Citrix Workspace app for Mac 26.09, Zoom VDI media plugin for Citrix (Mac) 7.0.14,
+Tested with: macOS 27.2, Citrix Workspace app for Mac 26.09, Zoom VDI plugin for Citrix, Mac version 7.0.14 (27210)
+(installed as `/Applications/ZoomVDI.app`, bundle ID `us.zoom.ZoomVDI`),
 Zoom Workplace in the Windows desktop, Jabra Elite 10 earbuds (firmware 4.6.0) over Bluetooth, BlackHole 2ch.
 
 ## How the audio actually flows here
 
 ```
 headset ──Bluetooth (call mode, 16 kHz)──► Mac ──► CallLift (+20 dB, limiter) ──► BlackHole 2ch
-        ──► Zoom media plugin ON THE MAC (zoomhdxMediaEngine: echo cancellation, noise removal, encoding)
+        ──► Zoom VDI plugin ON THE MAC: ZoomVDI.app → zoom.app (us.zoom.osx.zoomhdxMediaEngine):
+            echo cancellation, noise removal, encoding
         ──► internet ──► Zoom servers ──► other participants
 Citrix carries only Zoom's user interface and settings, not the audio.
 ```
 
 So everything that changes your voice happens **on the Mac**, even though you click the settings in Zoom inside Windows.
+In Control Center → Mic Mode and in macOS's microphone privacy list, this audio engine appears as **zoom** / **ZoomVDI**.
 
 ## Settings: Zoom inside the Citrix/Windows desktop
 
