@@ -13,7 +13,7 @@ The menu bar icon shows **live** whether your voice reaches a good level.
 **Your microphone stays on your Mac.**
 
 - **No internet access.** CallLift contains no networking code and opens no network connections (check yourself:
-  `lsof -i -a -p $(pgrep -x CallLift)` prints nothing; a firewall such as LuLu can block it with no effect on function).
+  `lsof -i -a -p $(pgrep -x CallLift)` prints nothing; a firewall such as [LuLu](https://github.com/objective-see/LuLu) can block it with no effect on function).
   No telemetry, no accounts, no auto-update. The only web link (BlackHole's project page) opens in your browser when you click it.
 - **Microphone only during calls.** CallLift opens your microphone only while an app is reading the virtual microphone,
   and closes it 3 s after that app stops. Outside calls the macOS orange microphone indicator shows no CallLift activity.
