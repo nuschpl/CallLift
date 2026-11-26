@@ -66,6 +66,7 @@ Each issue is documented separately with measurements in [FINDINGS](FINDINGS/REA
 8. [Bluetooth call mode: 16 kHz and a 2–4 s switch](FINDINGS/08-bluetooth-call-mode.md)
 9. [macOS falls back to a virtual device when the headset disconnects](FINDINGS/09-macos-fallback-to-virtual-device.md)
 10. [What was ruled out, and what is still open](FINDINGS/10-ruled-out-and-open.md)
+11. [The headset fades words in over about 100 ms](FINDINGS/11-jabra-word-start-fade-in.md): weak sentence starts and short words
 
 ## What CallLift does
 

@@ -59,10 +59,12 @@ final class HelpWindow: NSObject {
 
         h("Required settings")
         p("• VDI Zoom → Audio → Microphone: BlackHole 2ch")
-        p("• VDI Zoom → Microphone modes: Noise removal (removes keyboard and background noise that the boost makes audible)")
+        p("• VDI Zoom → Microphone modes: Original sound for musicians, all three boxes unchecked (Zoom's Noise removal would trim word starts; CallLift supplies the level). Use Noise removal instead only if keyboard or room noise comes through.")
+        p("• VDI Zoom → Advanced → Echo cancellation: Auto")
         p("• VDI Zoom → Speaker: your headset (or \"Same as system\") — never BlackHole 2ch")
         p("• Mac → System Settings → Sound → Input: the microphone you want to use (CallLift follows it)")
         p("• Zoom's \"Automatically adjust microphone volume\": off")
+        p("• Mac → Control Center → Mic Mode → Zoom entry: Standard (Voice Isolation with Original sound costs about 10 dB)")
 
         h("Menu bar icon")
         row("mic.circle", nil, "Idle", "no app is listening to BlackHole 2ch; CallLift does not touch any microphone.")

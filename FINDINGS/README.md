@@ -22,3 +22,4 @@ microphone level, which is independent of how loudly the speaker talked.
 | 08 | [Bluetooth call mode: 16 kHz and a 2–4 s switch](08-bluetooth-call-mode.md) | Bluetooth / macOS / headset | no (clarity, not loudness) |
 | 09 | [macOS falls back to a virtual device when the headset disconnects](09-macos-fallback-to-virtual-device.md) | macOS | no |
 | 10 | [What was ruled out, and what is still open](10-ruled-out-and-open.md) | — | — |
+| 11 | [The headset fades words in over about 100 ms](11-jabra-word-start-fade-in.md) | Jabra firmware | contributes: weak sentence starts and short words |

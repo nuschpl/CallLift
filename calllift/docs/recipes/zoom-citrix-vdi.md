@@ -36,15 +36,18 @@ Zoom → Settings → Audio → **Microphone modes**:
 
 | Mode | Use? | Why |
 |---|---|---|
-| **Noise removal (default)** | **ON** | Removes keyboard clicks and background noise that the boost makes audible; adds about +3 dB; trims little speech when the input is loud enough (97% of quiet speech kept at normal volume). |
+| **Original sound for musicians**, with **all three boxes unchecked** (High-fidelity, Echo cancellation, Stereo) | **ON** (top bar shows "Original sound for musicians: on") | With CallLift supplying the level, Zoom's own processing is not needed and only hurts: Noise removal trims the already slow word starts of Bluetooth earbuds (finding 11) and its double-talk handling cut people off when both spoke ("walkie-talkie"). In a 37-minute real call with this setting: no walkie-talkie effect, speech at about −7 dBFS (Zoom's green zone), no complaints. The headset's own noise gate keeps background noise out. **Provisional:** confirmed in one real call so far. |
+| Noise removal (default) | alternative | Use it if keyboard or room noise comes through (e.g. without a gating headset, or with the MacBook mic). Adds about +3 dB but keeps only 87–97% of quiet speech and penalizes noisy input. |
 | Personalized audio isolation | **NEVER** with Bluetooth earbuds | Removed the earbud voice almost completely: **−41 to −48 dB**, in every echo setting. (Worked with the MacBook mic.) |
-| Original sound for musicians | **OFF** (top bar must show "Original sound for musicians: off") | Passes keyboard noise through after the boost. Together with macOS Voice Isolation it cost **−10 dB**. Its sub-options (High-fidelity, Echo cancellation, Stereo) changed the level only by 0–1 dB, but all three together cut more speech. |
+
+With Original sound, macOS Mic Mode for the Zoom entry **must be Standard**: Original sound + Voice Isolation cost the
+earbuds **−10 dB** (finding 06).
 
 Zoom → Settings → Audio → **Advanced**:
 
 | Setting | Value | Why |
 |---|---|---|
-| Echo cancellation | **Low** (Auto is fine too) | Earbuds produce little echo; Low is the least processing when two people talk at once. Auto/Low/Aggressive could not be told apart in our tests (nothing played in the ears while talking). If others hear an echo of themselves, use Auto. |
+| Echo cancellation | **Auto** | Used in the successful real call together with Original sound. In our tests Auto/Low/Aggressive could not be told apart (nothing played in the ears while talking); Auto adapts if the boosted signal carries echo remnants from the earbuds. |
 | Windows system audio enhancements | Off | Applies to Windows audio devices; your audio is processed on the Mac, so it does not matter, but Off avoids surprises. |
 | Signal processing by Windows audio device drivers | Off | Same reason. |
 | Suggest switching to USB audio devices | any | Only a pop-up. |
