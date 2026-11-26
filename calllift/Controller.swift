@@ -60,6 +60,7 @@ final class Controller {
     private var starting = false { didSet { if starting != oldValue { onStateChange?(state, state) } } }  // Bluetooth call-mode switch in progress
     var isStarting: Bool { starting }
     private var lastInBlocks = -1, stallTicks = 0, stallRestarted = false
+    private var lastStatLog = Date.distantPast   // periodic call log: delay, dropouts, resyncs (every 10 s while active)
     private(set) var stalled = false      // input callbacks stopped while active (hung Bluetooth link)
     private var permissionNotified = false
     private(set) var lastStartSeconds: Double?
@@ -207,6 +208,7 @@ final class Controller {
             if pipe == nil && !starting { startPipeline() }
             enforceVolumes()
             checkStall()
+            logStats()
         } else if pipe != nil {
             if idleSince == nil { idleSince = Date() }
             if Date().timeIntervalSince(idleSince!) > 3 { log("nobody reads \(sinkName) -> idle"); stopPipeline(); state = .idle }
@@ -256,6 +258,17 @@ final class Controller {
         }
         AudioObjectAddPropertyListenerBlock(src, &r, .main, blk)
         rateListener = (src, blk)
+    }
+
+    /// Every 10 s while active: CallLift's own delay and health, so a call can be checked afterwards in the log.
+    private func logStats() {
+        // time-based: tick() also runs on every audio event, so counting ticks logged about once a second
+        guard let p = pipe, Date().timeIntervalSince(lastStatLog) >= 10 else { return }
+        lastStatLog = Date()
+        let s = p.stats
+        log(String(format: "call: delay %.1f ms (buffer %.1f ms + ~7 ms device buffers), clock correction %+.0f ppm, dropouts %d, resyncs %d, overflow %d, boost %+.0f dB",
+                   p.latencyMs + 7, p.latencyMs, p.correctionPPM, s.underruns.load(ordering: .relaxed),
+                   s.resyncs.load(ordering: .relaxed), p.ring.overflow.load(ordering: .relaxed), gainDB))
     }
 
     /// 2) input watchdog: if the mic stops delivering callbacks while active, warn and try one restart.
