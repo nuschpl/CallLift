@@ -13,7 +13,7 @@ microphone level, which is independent of how loudly the speaker talked.
 | # | Finding | Component | Caused the original problem? |
 |---|---|---|---|
 | 01 | [No input level normalization in Zoom's VDI path](01-zoom-no-input-normalization.md) | Zoom VDI plugin | **yes: main cause** |
-| 02 | [Apple's voice processing boosts only the built-in mic](02-apple-voice-processing-builtin-only.md) | macOS | yes: why the headset was worse than the laptop |
+| 02 | [Corrected: Apple does not boost the built-in mic; Zoom's Noise removal penalizes noisy input](02-apple-voice-processing-builtin-only.md) | Zoom (with macOS Mic Mode) | no (earlier version wrongly said yes) |
 | 03 | [Zoom's input volume slider has no effect in VDI](03-zoom-vdi-input-slider-no-effect.md) | Zoom VDI plugin | no, but blocks the obvious fix |
 | 04 | [Zoom's auto-volume only lowers, and the lowered level sticks](04-zoom-auto-volume-only-lowers.md) | Zoom VDI plugin | no (seen later), but a trap |
 | 05 | [Personalized audio isolation removes a Bluetooth earbud voice](05-zoom-personalized-isolation-removes-voice.md) | Zoom | no (not used then), severe |

@@ -14,7 +14,7 @@
 
 ## Still open (plausible, not proven)
 
-Why the headset sounded quieter than the laptop to colleagues, beyond finding 02:
+Why the headset sounded quieter than the laptop to colleagues (at equal default settings both reach Zoom about equally loud, finding 02):
 
 1. **Speaking more quietly with earbuds.** With closed ears you hear your own voice louder inside your head and tend to
    speak softer. Earbud raw levels varied by about 15 dB between sessions; the laptop mic stayed stable.

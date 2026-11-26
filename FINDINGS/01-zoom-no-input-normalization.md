@@ -26,7 +26,7 @@ hardware with the platform's reference processing does not meet Zoom's target, t
 Zoom is the only component that defines the target (its meter) and is positioned to reach it.
 
 What is missing is a **digital automatic gain control that can also raise the level** toward a target, as WebRTC-based
-call apps do (up to about +30 dB) and as Apple's voice processing does for the built-in mic (finding 02).
+call apps do (up to about +30 dB).
 
 ## Evidence
 

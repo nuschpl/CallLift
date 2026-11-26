@@ -57,7 +57,7 @@ microphone and Apple's default processing, so it is not one headset's fault. Cal
 Each issue is documented separately with measurements in [FINDINGS](FINDINGS/README.md):
 
 1. [No input level normalization in Zoom's VDI path](FINDINGS/01-zoom-no-input-normalization.md): main cause
-2. [Apple's voice processing boosts only the built-in mic](FINDINGS/02-apple-voice-processing-builtin-only.md): why the headset was worse than the laptop
+2. [Corrected: Apple does not boost the built-in mic; Zoom's Noise removal penalizes noisy input](FINDINGS/02-apple-voice-processing-builtin-only.md)
 3. [Zoom's input volume slider has no effect in VDI](FINDINGS/03-zoom-vdi-input-slider-no-effect.md)
 4. [Zoom's auto-volume only lowers, and the lowered level sticks](FINDINGS/04-zoom-auto-volume-only-lowers.md)
 5. [Personalized audio isolation removes a Bluetooth earbud voice](FINDINGS/05-zoom-personalized-isolation-removes-voice.md)

@@ -1,34 +1,45 @@
-# 02 — Apple's voice processing boosts only the built-in mic
+# 02 — Corrected: Apple does not boost the built-in mic; Zoom's Noise removal penalizes noisy input
 
-**Component:** macOS (voice processing / Mic Mode used by the Zoom plugin)
-**Effect:** the MacBook's built-in mic gets about +8.5 dB from Apple's processing; a Bluetooth headset gets nothing.
-**Caused the original problem:** yes, it is the most likely measured reason why the headset sounded worse than the laptop.
+> **Correction (November 2026).** An earlier version of this finding was titled "Apple's voice processing boosts only
+> the built-in mic" and named it as the reason the headset sounded worse than the laptop. **That was wrong.** The same
+> measurements, read correctly, show no boost from Apple. The difference comes from Zoom's Noise removal.
 
-## What happens
+**Component:** Zoom (Noise removal), interacting with macOS Mic Mode
+**Effect:** with Zoom's Noise removal, a built-in mic **without** Apple's Voice Isolation arrives about 8.5 dB quieter
+than with it. Apple's processing itself adds no level.
+**Caused the original problem:** no. With the default settings the built-in mic and the Bluetooth headset reach Zoom
+about equally loud (+3.1 vs +3.3 dB Zoom gain).
 
-- macOS selects **Voice Isolation** automatically for the built-in mic (observed: switching Zoom to the MacBook mic
-  turned Control Center → Mic Mode → Zoom to Voice Isolation by itself). For the Jabra the mode was Standard.
-- With Zoom Noise removal:
+## Evidence
 
-| Mic | macOS Mic Mode (Zoom entry) | Zoom gain |
-|---|---|---|
-| MacBook built-in | Standard | **−5.4 dB** |
-| MacBook built-in | Voice Isolation (its default) | **+3.1 dB** |
-| Jabra (Bluetooth) | Standard | +3.3 dB |
-| Jabra (Bluetooth) | Voice Isolation | +2.9 dB |
+MacBook built-in mic, Zoom gain (received level minus raw level):
 
-So Apple's processing lifts the built-in mic by about **8.5 dB**, but does not lift the Bluetooth headset.
-Apple's processing apparently assumes a headset handles its own level.
+| | Zoom mode | macOS Mic Mode (Zoom entry) | Zoom gain |
+|---|---|---|---|
+| A | Original sound (Zoom's processing **off**) | Standard | +0.6 dB |
+| B | Original sound | Voice Isolation | −0.1 dB |
+| C | Noise removal (Zoom's processing **on**) | Standard | **−5.4 dB** |
+| D | Noise removal | Voice Isolation (macOS's default for the built-in mic) | **+3.1 dB** |
 
-## Note
+For comparison, the Jabra over Bluetooth with Noise removal: +3.3 dB (Standard), +2.9 dB (Voice Isolation).
 
-At equal raw level, built-in (with its default) and headset then arrive about equally loud. The remaining difference
-people hear likely also comes from how you speak and from narrowband sound (finding 10).
+- **A vs B: Apple adds nothing.** With Zoom's processing off, Voice Isolation changes the level by 0.7 dB. It was
+  really active: the pause level drops from −62 dBFS (room noise passes) to −96 dBFS (noise removed).
+- **C vs D: the 8.5 dB appears only with Zoom's Noise removal.** The raw built-in signal carries room noise between
+  words (about −62 dBFS); with Noise removal on that input, Zoom delivers it about 5 dB quieter. Once Apple has removed
+  the noise (D), Zoom's usual +3 dB applies. The Jabra delivers digital silence between words (its own noise gate), so
+  it gets the +3 dB either way.
+- macOS selects **Voice Isolation** automatically for the built-in mic when Zoom uses it (observed in Control Center →
+  Mic Mode); for the Jabra the mode stayed Standard.
+
+**Caveat:** single runs, from different sessions. The explanation "Zoom's Noise removal lowers noisy input" is the
+most likely reading, not yet confirmed by a dedicated test of each stage.
 
 ## Workaround
 
-CallLift's boost; for the built-in mic keep macOS's default Voice Isolation when using Zoom Noise removal.
+For the built-in mic with Zoom's Noise removal, keep macOS's default Voice Isolation. CallLift's boost covers the
+general level gap (finding 01).
 
 ## Status
 
-macOS behaviour; not reported.
+Not reported. Being re-tested stage by stage; this text will be updated with the result.
